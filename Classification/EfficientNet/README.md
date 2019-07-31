@@ -4,7 +4,7 @@
 
 안녕하세요. 이 포스팅은 **EfficientNet** review 를 정리한 것으로 [PR-168](https://www.youtube.com/watch?v=Vhz0quyvR7I) 발표 강의를 기반하고 있습니다. Google에서 ICML2019 학회에 제출한 논문으로 연산비용과 파라미터 수를 낮춰 효율성을 높일 수 있는 방법을 제안하고 있습니다. 
 
-![1564473314958](./img/1564473314958.png)
+<center>![1564473314958](./img/1564473314958.png)</center>
 
 ## Background
 
