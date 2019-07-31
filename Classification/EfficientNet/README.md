@@ -4,16 +4,17 @@
 
 안녕하세요. 이 포스팅은 **EfficientNet** review 를 정리한 것으로 [PR-168](https://www.youtube.com/watch?v=Vhz0quyvR7I) 발표 강의를 기반하고 있습니다. Google에서 ICML2019 학회에 제출한 논문으로 연산비용과 파라미터 수를 낮춰 효율성을 높일 수 있는 방법을 제안하고 있습니다. 
 
-![1564473314958](./img/1564473314958.png)
-<center><img src="./img/1564473314958.png"></center>
 <p align="center">
   <img src="./img/1564473314958.png">
 </p>
+
 ## Background
 
 ResNet 이후 사람보다 더 좋은 결과를 만들어내게 되었고 CNN을 활용하여 모델을 만드는 관점은 크게 두가지로 보여졌습니다. 
 
-![1564473895630](.\img\1564473895630.png)
+<p align="center">
+  <img src=".\img\1564473895630.png">
+</p>
 
 > [**FLOPS**](https://ko.wikipedia.org/wiki/플롭스)(**FL**oating point **OP**erations per **S**econd) - 초당 부동소수점 연산이라는 의미로 컴퓨터가 1초동안 수행할 수 있는 부동소수점 연산의 횟수를 기준으로 삼는다._(wiki)_
 
@@ -35,7 +36,9 @@ ConvNets을 Scaling-up하고 widely하게 함으로써 더욱 좋은 결과를 �
 - **Width** : Filter의 개수(Channel의 개수)를 늘리는 것을 의미합니다. (ex, MobileNet, ShuffleNet)
 - **Image resolution** : 입력 이미지의 해상도(크기)를 키우는 것을 의미합니다.
 
-![1564475381567](.\img\1564475381567.png)
+<p align="center">
+  <img src=".\img\1564475381567.png">
+</p>
 
 > 각 Block들은 Width * Height * Channel 을 Resolution * Channel 의 형태로 표현한 것입니다.
 
@@ -64,9 +67,13 @@ ConvNets을 Scaling-up하고 widely하게 함으로써 더욱 좋은 결과를 �
 
 기존의 ConvNets 의 Formulation을 보면 다음과 같습니다.
 
-![1564534849110](.\img\1564534849110.png)
+<p align="center">
+  <img src=".\img\1564534849110.png">
+</p>
 
-![1564535964785](.\img\1564535964785.png)
+<p align="center">
+  <img src=".\img\1564535964785.png">
+</p>
 
 > 마치 '함성함수' 처럼 연산되게 됩니다.
 
@@ -80,7 +87,9 @@ ConvNets을 Scaling-up하고 widely하게 함으로써 더욱 좋은 결과를 �
 
 그래서 EfficientNet에서는 이러한 Formulation 문제를 개선하여 design space를 줄이기 위해 모델의 scale을 결정하는 3가지 요소를 모두 고려하는 방법을 다음과 같이 제안하였습니다.
 
-![1564536451737](.\img\1564536451737.png)
+<p align="center">
+  <img src=".\img\1564536451737.png">
+</p>
 
 - $N(d,w,r) $ : Network scale Factors
 - $d\cdot\hat{L}_i$ : depth($d$) ratio에 따라서 Layer($\hat{L}_i$)의 scale을 조정
@@ -92,7 +101,9 @@ ConvNets을 Scaling-up하고 widely하게 함으로써 더욱 좋은 결과를 �
 
 Network scale Fators 중 하나씩 선택하여 scale을 조정한 결과를 나타내고 있습니다.
 
-![1564537433857](.\img\1564537433857.png)
+<p align="center">
+  <img src=".\img\1564537433857.png">
+</p>
 
 - 네트워크가 증가함에 따라서 accuracy gain이 감소하는 경향을 보이기도 하고 Depth, Width의 경우 **Saturation point** 에 도달하여 연산량이 증가함에 따라 정확도 향상이 미미한 것을 볼 수 있습니다.
 - Width를 조절한 경우 매우 wide하지만 좁은 네트워크 모델의 경우 higher level features를 획득하기 어려운 문제점이 발생합니다.
@@ -107,7 +118,9 @@ Network scale Fators 중 하나씩 선택하여 scale을 조정한 결과를 나
 
 직관적으로 resolution이 커지면 그에 맞게 depth나 width를 늘려야하는 것을 알 수 있습니다. 그러므로 recept field를 비율적으로 맞춰주기 위해서는 더 많은 layer가 필요하고 그에 따라 channel 수가 증가합니다.
 
-![1564538781030](.\img\1564538781030.png)
+<p align="center">
+  <img src=".\img\1564538781030.png">
+</p>
 
 - depth와 resolution을 고정하여 width의 scale을 고려하는 것보다 논문에서 제안하는 compound scaling(3가지 요소를 함께 고려하는것)을 하는 것이 더욱 성능이 좋은 것을 나타내고 있습니다. 
 - depth($r$)와 resolution($r$)의 크기를 함께 키우고 width($w$) scaling을 하는 것이 동일한 FLOPS cost에 대해서 더 빠르게 정확도를 향상시킬 수 있는 것을 알 수 있습니다.
@@ -149,7 +162,9 @@ $$
 
 #### EfficientNet-Bo Baseline Network
 
-![1564548437804](.\img\1564548437804.png)
+<p align="center">
+  <img src=".\img\1564548437804.png">
+</p>
 
 - #Layers 개수에 의해서 반복적으로 $MBConv$ 이 반복적으로 생성합니다. (Conv 갯수 뿐만 아니라 resolution이 같아야 같은 Layer가 반복되는 것)
 - $MBConv$은 Inverted bottleneck을 갖는 MobileNet V2에서 쓰는 기본 모듈
@@ -170,13 +185,17 @@ $$
 
 본 논문에서는 MNasNet을 기본 Baseline Network로 결정하였는데 MobileNets과 ResNets을 사용하였을 때의 결과도 함께 보여주며 Compound scale Method가 제일 좋은 결과를 도출하는 것을 실험적으로 알려주고 있습니다.
 
-![1564549208777](.\img\1564549208777.png)
+<p align="center">
+  <img src=".\img\1564549208777.png">
+</p>
 
 ### ImageNet Results for EfficientNet
 
 ImageNet 데이터 셋을 기준으로 각 네트워크를 비교한 결과입니다.
 
-![1564549658004](.\img\1564549658004.png)
+<p align="center">
+  <img src=".\img\1564549658004.png">
+</p>
 
 - 각 비교 결과는 비슷한 정확도를 갖는 네트워크를 기준으로 Bo 부터 B7까지 정렬한 것 입니다.
 - _Ratio-EfficientNet_은 EfficientNet-Bn 을 단위기준으로 하여 파라미터 수와 연산량이 몇 배가 차이나는 지에 대한 비교 결과를 나타내고 있습니다.
@@ -187,7 +206,9 @@ ImageNet 데이터 셋을 기준으로 각 네트워크를 비교한 결과입�
 
 모든 실험에 대해서 Latency를 계산하진 않았지만 대표적으로 두 가지 모델에 대해서 추론 속도를 측정한 결과를 나타내고 있습니다.
 
-![1564549847344](.\img\1564549847344.png)
+<p align="center">
+  <img src=".\img\1564549847344.png">
+</p>
 
 - 연산량이 감소함에 따라 속도가 빠르게 증가하는 것을 보이고 있습니다.
 
@@ -197,18 +218,24 @@ ImageNet 데이터 셋을 기준으로 각 네트워크를 비교한 결과입�
 
 Transfer Learning 을 진행하였을 때에도 상당히 좋은 결과를 보이고 있습니다. 특정 데이터 셋에서는 SOTA를 달성하진 못하였지만 대부분 근소한 차이를 보이며 연산량 대비 정확도 측면에서 효율이 매우 좋은 것을 알 수 있습니다.
 
-![1564550323812](.\img\1564550323812.png)
+<p align="center">
+  <img src=".\img\1564550323812.png">
+</p>
 
 ## Discussion
 
-![1564550356894](.\img\1564550356894.png)
+<p align="center">
+  <img src=".\img\1564550356894.png">
+</p>
 
 - Network scale Factor 들 중 하나씩 사용하였을 때의 결과와 모두 동시에 고려한 Compund scaling과의 비교 결과입니다.
 - 단일 요소를 고려하는 것보다 Compound scaling을 진행하였을 때 결과가 월등히 좋아지는 것을 확인할 수 있습니다.
 
 ### Class Activation Maps
 
-![1564550527160](.\img\1564550527160.png)
+<p align="center">
+  <img src=".\img\1564550527160.png">
+</p>
 
 - Activation Map을 통해서 결과를 확인하였을 때의 결과입니다.
 - 결과를 통해서 객체의 특징 잘 activate 하고 있는 것을 알 수 있습니다.
