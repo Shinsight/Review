@@ -6,7 +6,9 @@
 
 ![1564473314958](./img/1564473314958.png)
 <center><img src="./img/1564473314958.png"></center>
-
+<p align="center">
+  <img src="./img/1564473314958.png">
+</p>
 ## Background
 
 ResNet 이후 사람보다 더 좋은 결과를 만들어내게 되었고 CNN을 활용하여 모델을 만드는 관점은 크게 두가지로 보여졌습니다. 
